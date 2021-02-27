@@ -1,6 +1,5 @@
 import requests
 from flight_data import FlightData
-from pandas import *
 
 
 TEQUILA_ENDPOINT = "https://tequila-api.kiwi.com"

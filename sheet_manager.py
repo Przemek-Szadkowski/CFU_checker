@@ -1,6 +1,6 @@
 import requests
 
-API_ENDPOINT = 'https://api.sheety.co/e5f66404da94946abb43041a21970d92/cfu/arkusz1'
+API_ENDPOINT = 'https://api.sheety.co/bc83ed2bd76b3ca4b6a588c590abf87c/cfu/arkusz1'
 
 
 def update_google_sheet(flight_data, date):

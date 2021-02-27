@@ -3,7 +3,6 @@ from flight_search import check_flights
 from sheet_manager import update_google_sheet
 from notification_manager import send_message
 from pandas import *
-import smtplib
 
 ORIGIN_CITY_IATA_LIST = ['WAW', 'POZ', 'KTW']
 DESTINATION_IATA = 'CFU'
@@ -26,7 +25,7 @@ try:
     flights_frame = pandas.read_csv('cheapest_flights.csv')
 except FileNotFoundError:
     new_flights = pandas.DataFrame(flights_dict)
-    new_flights.to_csv('cheapest_flights.csv')
+    new_flights.to_csv('cheapest_flights.csv', index=False)
 else:
     flights_list = flights_frame.to_dict(orient='records')
     for nr in range(0, 3):
@@ -35,4 +34,5 @@ else:
             message = f'Subject: New cheapest flight to Corfu!!!\n\nNew cheapest fly from {flights_dict[nr]["origin_airport"]} - ' \
                       f'{flights_dict[nr]["out_date"]} to {flights_dict[nr]["return_date"]} - price: {flights_dict[nr]["price"]}'
             send_message(message)
-    pandas.DataFrame(flights_list).to_csv('cheapest_flights.csv')
+    new_flights = pandas.DataFrame(flights_list)
+    new_flights.to_csv('cheapest_flights.csv', index=False)
