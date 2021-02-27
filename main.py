@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 from flight_search import check_flights
 from sheet_manager import update_google_sheet
+from notification_manager import send_message
 from pandas import *
+import smtplib
 
 ORIGIN_CITY_IATA_LIST = ['WAW', 'POZ', 'KTW']
 DESTINATION_IATA = 'CFU'
@@ -18,8 +20,7 @@ check_flights(ORIGIN_CITY_IATA_LIST, DESTINATION_IATA, tomorrow, six_month_from_
 
 update_google_sheet(flights, today)
 
-# flights_dict = [item.__dict__ for item in flights]
-flights_dict = [{'price': 370, 'origin_city': 'Warsaw', 'origin_airport': 'WMI', 'destination': 'WMI', 'out_date': '2021-05-27', 'return_date': '2021-06-03'}, {'price': 252, 'origin_city': 'Poznań', 'origin_airport': 'POZ', 'destination': 'POZ', 'out_date': '2021-05-16', 'return_date': '2021-05-23'}, {'price': 516, 'origin_city': 'Katowice', 'origin_airport': 'KTW', 'destination': 'KTW', 'out_date': '2021-06-16', 'return_date': '2021-06-23'}]
+flights_dict = [item.__dict__ for item in flights]
 
 try:
     flights_frame = pandas.read_csv('cheapest_flights.csv')
@@ -31,4 +32,7 @@ else:
     for nr in range(0, 3):
         if flights_dict[nr]['price'] < flights_list[nr]['price']:
             flights_list[nr] = flights_dict[nr]
+            message = f'Subject: New cheapest flight to Corfu!!!\n\nNew cheapest fly from {flights_dict[nr]["origin_airport"]} - ' \
+                      f'{flights_dict[nr]["out_date"]} to {flights_dict[nr]["return_date"]} - price: {flights_dict[nr]["price"]}'
+            send_message(message)
     pandas.DataFrame(flights_list).to_csv('cheapest_flights.csv')

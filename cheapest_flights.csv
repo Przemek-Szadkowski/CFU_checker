@@ -1,4 +1,4 @@
-,price,origin_city,origin_airport,destination,out_date,return_date,Unnamed: 0,Unnamed: 0.1
-0,370,Warsaw,WMI,WMI,2021-05-27,2021-06-03,,
-1,252,Poznań,POZ,POZ,2021-05-16,2021-05-23,1.0,1.0
-2,516,Katowice,KTW,KTW,2021-06-16,2021-06-23,2.0,2.0
+,Unnamed: 0,price,origin_city,origin_airport,destination,out_date,return_date
+0,0.0,375,Warsaw,WMI,WMI,2021-06-17,2021-06-24
+1,,252,Poznań,POZ,POZ,2021-05-16,2021-05-23
+2,2.0,516,Katowice,KTW,KTW,2021-06-16,2021-06-23
